@@ -39,15 +39,17 @@ Przy wyświetlaniu statusu budżetu (dla danego miesiąca) aplikacja wyświetla:
 - Różnica w danym miesiącu
 - Zsumowane roczne przychody
 - Prognoza:
-Wyświetlana jest prognoza wydatków do końca roku( **Suma wydatków do danego miesiąca** + **średnie prognozowane miesięczne wydatki** wyliczone na podstawie **suma wydatków** / **liczba miesięcy do teraz** * **pozostałe miesiące do końca roku**)
-Na podstawie prognozy wyświetlany jest komunikat lub ostrzeżenie o negatywnej prognozie.
+Wyświetlana jest prognoza wydatków do końca roku( **Suma wydatków do danego miesiąca** + **średnie prognozowane miesięczne wydatki** wyliczone na podstawie **suma wydatków** / **liczba miesięcy do teraz** * **pozostałe miesiące do końca roku**).
+
+- Na podstawie prognozy wyświetlany jest komunikat lub ostrzeżenie o negatywnej prognozie.
 
 
 
 
 ### Obsługa błędów:
 
-Aplikacja obsługiwać błędy, takie jak podanie nieprawidłowego ID, kwoty, daty, wybranie nieistniejącej opcji w menu
+Aplikacja obsługiwać błędy, takie jak podanie nieprawidłowego ID, kwoty, daty, wybranie nieistniejącej opcji w menu.
+
 Użytkownik otrzymuje stosowny komunikat o otrzymanym błędzie.
 
 
@@ -59,13 +61,16 @@ Ewentualna implementacja lepszych wykresów np. plottext
 ## Struktura projektu
 
 main.py - główne menu i obsługa inputów użytkownika
+
 expense_manager.py : przechowywanie, wyświetlanie i praca na wydatkach
+
 budget.py : logika budżetu
+
 income.py : logika przychodów
 
 expenses.json, budget.json, income.json - przechowywanie informacji użytkownika
 
-Na ten moment nie ma wymaganych żadnych bibliotek. 
+Na ten moment nie ma wymaganych żadnych dodatkowych bibliotek. 
 
 
 
