@@ -19,12 +19,12 @@ Oprócz tego
 ### Logika
 
 - Aplikacja posiada interfejs w konsoli.
-- Każdy wydatek ma unikalny identyfikator na podstawie kategorii, kwotę, kategorię, datę oraz opis.
+- Każdy wydatek ma unikalny identyfikator przydzielany na podstawie kategorii, kwotę, kategorię, datę oraz opis.
 - Użytkownik może filtrować wydatki według kategorii, daty lub kwoty.
-- Można sortować wydatków według wszystkich kryteriów (domyślnie ID).
+- Można sortować wydatki według wszystkich kryteriów (domyślnie ID).
 - Dane o wydatkach, budżecie i przychodach powinny być przechowywane w plikach JSON.
 - Użytkownik ma możliwość usuwania wydatków na podstawie identyfikatora lub szukając po opisie.
-- Użytkownik może edytować istniejące wydatki (kwota, kategoria, data, opis). Przy zmianie kategorii aktualizowane jest ID aby odpowiadać kategorii.
+- Użytkownik może edytować istniejące wydatki (kwota, kategoria, data, opis). Przy zmianie kategorii aktualizowane jest ID.
 - Można ustalić i wyświetlić przychody(miesięczne). 
 - Można ustalić i wyświetlić budżet dla wybranego miesiąca.
 - Można wyświetlić graficzną reprezentację wydatków z podziałem na kategorie
@@ -37,9 +37,9 @@ Przy wyświetlaniu statusu budżetu (dla danego miesiąca) aplikacja wyświetla:
 - Wydatki w danym miesiącu
 - Suma wydatków dla całego roku(w którym znajduje się miesiąc)
 - Różnica w danym miesiącu
-
-Wszystkie przychody roczne są sumowane i wyświetlane
-Wyświetlana jest prognoza wydatków do końca roku( Suma wydatków do danego miesiąca + średnie prognozowane miesięczne wydatki wyliczone na podstawie suma wydatków / liczba miesięcy do teraz * pozostałe miesiące do końca roku)
+- Zsumowane roczne przychody
+- Prognoza:
+Wyświetlana jest prognoza wydatków do końca roku( **Suma wydatków do danego miesiąca** + **średnie prognozowane miesięczne wydatki** wyliczone na podstawie **suma wydatków** / **liczba miesięcy do teraz** * **pozostałe miesiące do końca roku**)
 Na podstawie prognozy wyświetlany jest komunikat lub ostrzeżenie o negatywnej prognozie.
 
 
