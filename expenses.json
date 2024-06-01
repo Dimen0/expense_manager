@@ -1,0 +1,16 @@
+[
+    {
+        "id": "J-1",
+        "amount": 2222.0,
+        "category": "Jedzenie",
+        "date": "2024-06-01",
+        "description": "abc"
+    },
+    {
+        "id": "M-1",
+        "amount": 1212.0,
+        "category": "Mieszkanie",
+        "date": "2024-06-01",
+        "description": ""
+    }
+]
