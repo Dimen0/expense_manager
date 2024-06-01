@@ -86,7 +86,7 @@ class ExpenseManager:
                 self.update_ids()
                 self.save_expenses()
                 return
-        raise ValueError(f'Expense with id {expense_id} not found.')
+        raise ValueError(f'Wydatek o tym ID: {expense_id} nie istnieje.')
 
     def delete_expense(self, expense_id):
         initial_length = len(self.expenses)
