@@ -12,5 +12,12 @@
         "category": "Mieszkanie",
         "date": "2024-06-01",
         "description": ""
+    },
+    {
+        "id": "M-2",
+        "amount": 6500.0,
+        "category": "Mieszkanie",
+        "date": "2023-07-12",
+        "description": "Czynsz"
     }
 ]

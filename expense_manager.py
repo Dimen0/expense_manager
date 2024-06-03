@@ -108,10 +108,10 @@ class ExpenseManager:
         except ValueError:
             return False
 
-    def display_expense_distribution(self, budget, total_expenses):
+    def display_expense_distribution(self, budget, total_expenses, monthly_expenses):
         from collections import defaultdict
         category_totals = defaultdict(float)
-        for expense in self.expenses:
+        for expense in monthly_expenses:
             category_totals[expense['category']] += expense['amount']
 
         max_length = max(len(category) for category in category_totals)

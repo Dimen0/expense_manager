@@ -141,9 +141,7 @@ def expenses_menu(expense_manager, budget_manager):
             expenses = expense_manager.list_expenses()
             expense_manager.print_expenses(expenses)
         elif choice == '5':
-            month = input_month("Podaj miesiąc")
-            budget, total_expenses = budget_manager.get_budget_status(month, expense_manager.expenses)
-            expense_manager.display_expense_distribution(budget, total_expenses)
+            display_expense_distribution(budget_manager, expense_manager)
         elif choice == '6':
             break
         else:
@@ -198,8 +196,11 @@ def check_budget_status(budget_manager, expense_manager, income_manager):
 
 def display_expense_distribution(budget_manager, expense_manager):
     month = input_month("Podaj miesiąc")
+    monthly_expenses = [expense for expense in expense_manager.expenses if expense['date'].startswith(month)]
     budget, total_expenses = budget_manager.get_budget_status(month, expense_manager.expenses)
-    expense_manager.display_expense_distribution(budget, total_expenses)
+    expense_manager.display_expense_distribution(budget, total_expenses, monthly_expenses)
 
 if __name__ == "__main__":
     main()
+
+#prevent typing anything in date
