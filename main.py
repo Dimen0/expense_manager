@@ -25,10 +25,15 @@ def input_amount(prompt, allow_empty=False):
             print("Nieprawidłowa kwota. Proszę wprowadzić wartość numeryczną.")
 
 def input_month(prompt):
-    month_input = input(f"{prompt} (YYYY-MM) lub naciśnij Enter dla bieżącego miesiąca: ")
-    if not month_input:
-        return datetime.today().strftime('%Y-%m')
-    return month_input
+    while True:
+        month_input = input(f"{prompt} (YYYY-MM) lub naciśnij Enter dla bieżącego miesiąca: ")
+        if not month_input:
+            return datetime.today().strftime('%Y-%m')
+        try:
+            datetime.strptime(month_input, '%Y-%m')
+            return month_input
+        except ValueError:
+            print("Nieprawidłowy format daty. Proszę wprowadzić datę w formacie YYYY-MM.")
 
 def main():
     expense_manager = ExpenseManager()

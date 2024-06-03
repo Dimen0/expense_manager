@@ -19,5 +19,12 @@
         "category": "Mieszkanie",
         "date": "2023-07-12",
         "description": "Czynsz"
+    },
+    {
+        "id": "J-2",
+        "amount": 2222.0,
+        "category": "Jedzenie",
+        "date": "2024-10",
+        "description": ""
     }
 ]
