@@ -3,7 +3,6 @@ from budget import BudgetManager
 from income import IncomeManager
 from datetime import datetime
 
-
 def input_date(prompt):
     while True:
         date_input = input(f"{prompt} (YYYY-MM-DD) lub naciśnij Enter dla dzisiejszej daty: ")
@@ -13,12 +12,6 @@ def input_date(prompt):
             return date_input
         else:
             print("Nieprawidłowa data. Spróbuj ponownie.")
-
-def input_month(prompt):
-    month_input = input(f"{prompt} (YYYY-MM) lub naciśnij Enter dla bieżącego miesiąca: ")
-    if not month_input:
-        return datetime.today().strftime('%Y-%m')
-    return month_input
 
 def input_amount(prompt, allow_empty=False):
     while True:
@@ -30,24 +23,51 @@ def input_amount(prompt, allow_empty=False):
             return round(amount, 2)
         except ValueError:
             print("Nieprawidłowa kwota. Proszę wprowadzić wartość numeryczną.")
+
+def input_month(prompt):
+    month_input = input(f"{prompt} (YYYY-MM) lub naciśnij Enter dla bieżącego miesiąca: ")
+    if not month_input:
+        return datetime.today().strftime('%Y-%m')
+    return month_input
+
 def main():
     expense_manager = ExpenseManager()
     budget_manager = BudgetManager()
     income_manager = IncomeManager()
 
     while True:
+        print("Budget manager on the Budget")
+        print("==============================================")
+        print("1. Wydatki")
+        print("2. Budżet i przychody")
+        print("3. Sprawdź status budżetu")
+        print("4. Wyświetl rozkład wydatków")
+        print("5. Wyjście")
+        choice = input("Wybierz opcję: ")
+
+        if choice == '1':
+            expenses_menu(expense_manager, budget_manager)
+        elif choice == '2':
+            budget_and_income_menu(budget_manager, income_manager, expense_manager)
+        elif choice == '3':
+            check_budget_status(budget_manager, expense_manager, income_manager)
+        elif choice == '4':
+            display_expense_distribution(budget_manager, expense_manager)
+        elif choice == '5':
+            break
+        else:
+            print("Nieprawidłowa opcja, spróbuj ponownie.")
+
+def expenses_menu(expense_manager, budget_manager):
+    while True:
+        print("\nMenu Wydatki:")
         print("1. Dodaj wydatek")
         print("2. Przeglądaj wydatki")
         print("3. Edytuj wydatek")
         print("4. Usuń wydatek")
-        print("5. Ustaw budżet miesięczny")
-        print("6. Sprawdź status budżetu")
-        print("7. Wyświetl rozkład wydatków")
-        print("8. Dodaj przychód")
-        print("9. Wyświetl przychody")
-        print("10. Wyjście")
+        print("5. Wyświetl rozkład wydatków")
+        print("6. Cofnij do menu głównego")
         choice = input("Wybierz opcję: ")
-
 
         if choice == '1':
             amount = input_amount("Podaj kwotę: ")
@@ -104,6 +124,8 @@ def main():
                 )
             except ValueError as e:
                 print(e)
+            expenses = expense_manager.list_expenses()
+            expense_manager.print_expenses(expenses)
         elif choice == '4':
             delete_choice = input("Usunąć wydatek po ID (1) czy wyszukać po opisie (2)?: ")
             if delete_choice == '1':
@@ -120,45 +142,64 @@ def main():
             expense_manager.print_expenses(expenses)
         elif choice == '5':
             month = input_month("Podaj miesiąc")
-            amount = input_amount("Podaj kwotę budżetu: ")
-            budget_manager.set_budget(month, amount)
-        elif choice == '6':
-            month = input_month("Podaj miesiąc")
-            budget, total_expenses = budget_manager.get_budget_status(month, expense_manager.expenses)
-            total_expenses_all_months = sum(expense['amount'] for expense in expense_manager.expenses)
-            print(f"Budżet: {budget:.2f} PLN, Wydatki w wybranym miesiącu: {total_expenses:.2f} PLN, Wydatki roczne: {total_expenses_all_months:.2f} PLN, Pozostało: {budget - total_expenses:.2f} PLN")
-            forecasted_balance, total_income, total_expenses, forecasted_expenses = income_manager.calculate_yearly_forecast(expense_manager.expenses)
-            print(f"\nRoczny przychód: {total_income:.2f} PLN")
-            print(f"Prognozowane wydatki roczne: {forecasted_expenses:.2f} PLN")
-            print(f"Prognozowany bilans na koniec roku: {forecasted_balance:.2f} PLN")
-            if forecasted_balance > 0:
-                print("Prognoza: Jesteś na plusie. Świetnie zarządzasz swoim budżetem!")
-            elif forecasted_balance == 0:
-                print("Prognoza: Jesteś na zero. Uważaj na swoje wydatki.")
-            else:
-                print("Prognoza: Jesteś na minusie. Musisz zacząć oszczędzać!")
-        elif choice == '7':
-            month = input_month("Podaj miesiąc")
             budget, total_expenses = budget_manager.get_budget_status(month, expense_manager.expenses)
             expense_manager.display_expense_distribution(budget, total_expenses)
-        elif choice == '8':
-            amount = input_amount("Podaj kwotę przychodu (miesięcznie): ")
-            source = input("Podaj źródło przychodu: ")
-            date = input_date("Podaj datę przychodu")
-            income_manager.add_income(amount, source, date)
-        elif choice == '9':
-            incomes = income_manager.list_incomes()
-            print("Lista przychodów (miesięcznie):")
-            for income in incomes:
-                print(f"Kwota: {income['amount']:.2f} PLN, Źródło: {income['source']}, Data: {income['date']}")
-        elif choice == '10':
+        elif choice == '6':
             break
         else:
             print("Nieprawidłowa opcja, spróbuj ponownie.")
+
+def budget_and_income_menu(budget_manager, income_manager, expense_manager):
+    while True:
+        print("\nMenu Budżet i przychody:")
+        print("1. Ustaw budżet miesięczny")
+        print("2. Sprawdź status budżetu")
+        print("3. Dodaj przychód")
+        print("4. Wyświetl przychody")
+        print("5. Cofnij do menu głównego")
+        choice = input("Wybierz opcję: ")
+
+        if choice == '1':
+            month = input_month("Podaj miesiąc")
+            amount = input_amount("Podaj kwotę budżetu: ")
+            budget_manager.set_budget(month, amount)
+        elif choice == '2':
+            check_budget_status(budget_manager, expense_manager, income_manager)
+        elif choice == '3':
+            amount = input_amount("Podaj kwotę przychodu: ")
+            source = input("Podaj źródło przychodu: ")
+            date = input_date("Podaj datę przychodu")
+            income_manager.add_income(amount, source, date)
+        elif choice == '4':
+            incomes = income_manager.list_incomes()
+            print("Lista przychodów:")
+            for income in incomes:
+                print(f"Kwota: {income['amount']:.2f} PLN, Źródło: {income['source']}, Data: {income['date']}")
+        elif choice == '5':
+            break
+        else:
+            print("Nieprawidłowa opcja, spróbuj ponownie.")
+
+def check_budget_status(budget_manager, expense_manager, income_manager):
+    month = input_month("Podaj miesiąc")
+    budget, total_expenses = budget_manager.get_budget_status(month, expense_manager.expenses)
+    total_expenses_all_months = sum(expense['amount'] for expense in expense_manager.expenses)
+    print(f"Budżet: {budget:.2f} PLN, Wydatki w wybranym miesiącu: {total_expenses:.2f} PLN, Wydatki całkowite: {total_expenses_all_months:.2f} PLN, Pozostało: {budget - total_expenses:.2f} PLN")
+    forecasted_balance, total_income, total_expenses, forecasted_expenses = income_manager.calculate_yearly_forecast(expense_manager.expenses)
+    print(f"\nRoczny przychód: {total_income:.2f} PLN")
+    print(f"Prognozowane wydatki roczne: {forecasted_expenses:.2f} PLN")
+    print(f"Prognozowany bilans na koniec roku: {forecasted_balance:.2f} PLN")
+    if forecasted_balance > 0:
+        print("Prognoza: Jesteś na plusie. Świetnie zarządzasz swoim budżetem!")
+    elif forecasted_balance == 0:
+        print("Prognoza: Jesteś na zero. Uważaj na swoje wydatki.")
+    else:
+        print("Prognoza: Jesteś na minusie. Musisz zacząć oszczędzać!")
+
+def display_expense_distribution(budget_manager, expense_manager):
+    month = input_month("Podaj miesiąc")
+    budget, total_expenses = budget_manager.get_budget_status(month, expense_manager.expenses)
+    expense_manager.display_expense_distribution(budget, total_expenses)
+
 if __name__ == "__main__":
     main()
-
-
-#poprawa menu
-#ewentualnie plottext?
-#s
