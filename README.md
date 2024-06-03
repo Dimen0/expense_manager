@@ -55,7 +55,8 @@ Użytkownik otrzymuje stosowny komunikat o otrzymanym błędzie.
 
 
 ### To do:
-Poprawa interfejsu
+Poprawa interfejsu - DONE 
+
 Ewentualna implementacja lepszych wykresów np. plottext
 
 ## Struktura projektu
